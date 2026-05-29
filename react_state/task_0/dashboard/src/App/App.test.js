@@ -70,5 +70,26 @@ describe('<App />', () => {
         expect(window.alert).toHaveBeenCalledWith("Logging you out");
         expect(props.logOut).toHaveBeenCalled();
         window.alert.mockRestore();
-    })
+    });
+
+    it('verifies that the default state for displayDrawer is false', () => {
+        const wrapper = shallow(<App />);
+        expect(wrapper.instance().state.displayDrawer).toBe(false);
+    });
+
+    it('verifies that after calling handleDisplayDrawer, displayDrawer is true', () => {
+        const wrapper = shallow(<App />);
+        const instance = wrapper.instance();
+        instance.handleDisplayDrawer();
+        expect(wrapper.instance().state.displayDrawer).toBe(true);
+    });
+
+    it('verifies that after calling handleHideDrawer, displayDrawer is false', () => {
+        const wrapper = shallow(<App />);
+        const instance = wrapper.instance();
+        instance.handleDisplayDrawer();
+        expect(wrapper.instance().state.displayDrawer).toBe(true);
+        instance.handleHideDrawer();
+        expect(wrapper.instance().state.displayDrawer).toBe(false);
+    });
 });

@@ -16,6 +16,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleKeydown = this.handleKeydown.bind(this);
+    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
+    this.handleHideDrawer = this.handleHideDrawer.bind(this);
+
+    this.state = {
+      displayDrawer: false,
+    };
   }
 
   // Lifecycle Methods
@@ -35,8 +41,17 @@ class App extends React.Component {
     }
   }
 
+  handleDisplayDrawer() {
+    this.setState({ displayDrawer: true });
+  }
+
+  handleHideDrawer() {
+    this.setState({ displayDrawer: false });
+  }
+
   render() {
-    const { isLoggedIn, logOut } = this.props;
+    const { isLoggedIn } = this.props;
+    const { displayDrawer } = this.state;
 
     const listCourses = [
       { id: 1, name: 'ES6', credit: 60 },
@@ -52,7 +67,12 @@ class App extends React.Component {
 
     return (
       <>
-        <Notifications displayDrawer={ false } listNotifications={ listNotifications } />
+        <Notifications
+          displayDrawer={ displayDrawer }
+          listNotifications={ listNotifications }
+          handleDisplayDrawer={ this.handleDisplayDrawer }
+          handleHideDrawer={ this.handleHideDrawer }
+        />
         <div className="App">
           <Header />
           { isLoggedIn ?
